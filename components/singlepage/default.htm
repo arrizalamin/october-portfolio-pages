@@ -1,0 +1,15 @@
+<div class="container">
+	{% set portfolio = __SELF__.portfolio %}
+    <div>
+        {% for image in portfolio.images %}
+        <a href="{{ image.path }}">
+            <img src="{{ image.path }}" class="img-responsive" alt="{{ image.title }}">
+        </a>
+		{% endfor %}
+    </div>
+    <h2 class="text-center">{{ portfolio.title }}</h2>
+    <div class="text-center">
+        {{ portfolio.description|raw }}
+    </div>
+    <a href="{{ portfolio.page_url }}">Learn More</a>
+</div>

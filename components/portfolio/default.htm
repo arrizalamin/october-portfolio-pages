@@ -1,0 +1,33 @@
+<div class="container">
+    {% set portfolio = __SELF__.portfolio %}
+    {% for item in portfolio %}
+        <div>
+            {% set image = item.images.first %}
+            <a href="{{ item.url }}">
+                <img src="{{ image.path }}" class="img-responsive" alt="{{ image.title }}">
+            </a>
+        </div>
+        <h2 class="text-center">{{ item.title }}</h2>
+        <div class="text-center">
+            {{ item.excerpt|raw }}
+        </div>
+        <a href="{{ item.page_url }}">Learn More</a>
+    {% endfor %}
+    {% if portfolio.lastPage > 1 %}
+    <ul class="pagination">
+        {% if portfolio.currentPage > 1 %}
+        <li><a href="{{ this.page.baseFileName|page({ page: (portfolio.currentPage - 1) }) }}">&larr; Prev</a></li>
+        {% endif %}
+
+        {% for page in 1..portfolio.lastPage %}
+        <li class="{{ portfolio.currentPage == page ? 'active' : null }}">
+            <a href="{{ this.page.baseFileName|page({ page: page }) }}">{{ page }}</a>
+        </li>
+        {% endfor %}
+
+        {% if portfolio.lastPage > portfolio.currentPage %}
+        <li><a href="{{ this.page.baseFileName|page({ page: (portfolio.currentPage + 1) }) }}">Next &rarr;</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+</div>
